@@ -55,8 +55,6 @@ app.post("/failer", (req,res)=>{  // to let users e redirected to the root route
 
 app.get("/", (req, res)=>{
     res.sendFile(__dirname + "/index.html")
-    console.log(listid);
-    console.log(apikey);
 })
 
 app.listen(process.env.PORT || 3000, ()=>{
