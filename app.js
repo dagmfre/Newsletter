@@ -21,13 +21,10 @@ app.post("/", (req,res)=>{
     }
     
     let data = JSON.stringify(members);     //  changing the data above to a JSON format
-
-    const apikey = process.env.API_KEY;
-    const listid = process.env.LIST_IDS;
-    const url = `https://us21.api.mailchimp.com/3.0/Lists/${listid}`;  // the url endpoint(with the audience/list id and us# added)  
+    const url = `https://us21.api.mailchimp.com/3.0/Lists/${config.listid}`;  // the url endpoint(with the audience/list id and us# added)  
     const options = {     // the option(with a post req.method and authentication) that we should sent to mailchimp
         method: "POST",
-        auth: `dagm:${apikey}`
+        auth: `dagm:${config.apikey}`
     }
 
     const request = https.request(url, options, (response)=>{ // - sending a post request to mailchimp and assigning the http request to a variable called "request"
@@ -54,10 +51,10 @@ app.post("/failer", (req,res)=>{  // to let users e redirected to the root route
 
 app.get("/", (req, res)=>{
     res.sendFile(__dirname + "/index.html")
+    // console.log(config.apikey);
+    // console.log(config.listId);
 })
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log("server is running on port 3000");
-    console.log(config.apiKey);
-    console.log(config.listId);
 })
