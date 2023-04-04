@@ -2,8 +2,8 @@ const express = require ("express");
 const https = require("https");
 require('dotenv').config()
 
-const apiKey = process.env.API_KEY
-const listId = process.env.LIST_ID
+const apikey = process.env.API_KEY
+const listid = process.env.LIST_ID
 
 
 const app = express();
@@ -25,10 +25,10 @@ app.post("/", (req,res)=>{
     }
     
     let data = JSON.stringify(members);     //  changing the data above to a JSON format
-    const url = `https://us21.api.mailchimp.com/3.0/Lists/${apiKey}`;  // the url endpoint(with the audience/list id and us# added)  
+    const url = `https://us21.api.mailchimp.com/3.0/Lists/${apikey}`;  // the url endpoint(with the audience/list id and us# added)  
     const options = {     // the option(with a post req.method and authentication) that we should sent to mailchimp
         method: "POST",
-        auth: `dagm:${listId}`
+        auth: `dagm:${listid}`
     }
 
     const request = https.request(url, options, (response)=>{ // - sending a post request to mailchimp and assigning the http request to a variable called "request"
@@ -55,8 +55,8 @@ app.post("/failer", (req,res)=>{  // to let users e redirected to the root route
 
 app.get("/", (req, res)=>{
     res.sendFile(__dirname + "/index.html")
-    // console.log(listId);
-    // console.log(apiKey);
+    // console.log("hello" + listid);
+    // console.log(apikey);
 })
 
 app.listen(process.env.PORT || 3000, ()=>{
