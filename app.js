@@ -1,5 +1,6 @@
 const express = require ("express");
 const https = require("https");
+const config = require('./config');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +27,7 @@ app.post("/", (req,res)=>{
     const url = `https://us21.api.mailchimp.com/3.0/Lists/${listid}`;  // the url endpoint(with the audience/list id and us# added)  
     const options = {     // the option(with a post req.method and authentication) that we should sent to mailchimp
         method: "POST",
-        auth: `user:${apikey}`
+        auth: `dagm:${apikey}`
     }
 
     const request = https.request(url, options, (response)=>{ // - sending a post request to mailchimp and assigning the http request to a variable called "request"
@@ -57,4 +58,6 @@ app.get("/", (req, res)=>{
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log("server is running on port 3000");
+    console.log(config.apiKey);
+    console.log(config.listId);
 })
